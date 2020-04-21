@@ -1,3 +1,19 @@
-<form action='/search' method=''>
-<input type="text" name="">
-</form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href='./styles/styles.css'>
+  <title>Book Search!</title>
+</head>
+<body>
+
+  <form action='/searches' method='POST'>
+    <input type="text" name="query" default="Input Title or Author">
+    <label>Title</label><input type="radio" name="filter" value="intitle" required>
+    <label>Author</label><input type='radio' name='filter' value="inauthor">
+    <button type='submit'>Search the Google Books API</button>
+    </form>
+  
+</body>
+</html>
