@@ -1,0 +1,15 @@
+/* Colors */
+/* Grey #D3D4D9; */
+/* Blue #4B88A2;
+Red #BB0A21;
+Black #252627;
+White #FFF9FB; */
+
+body {
+  background-color: #FFF9FB ;
+}
+
+header {
+  background-color: #4B88A2;
+  height: 100px;
+}
