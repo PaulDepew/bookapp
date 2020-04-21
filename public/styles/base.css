@@ -1,15 +1,25 @@
-/* Colors */
-/* Grey #D3D4D9; */
-/* Blue #4B88A2;
+/* Colors
+Grey #D3D4D9;
+Blue #4B88A2;
 Red #BB0A21;
 Black #252627;
 White #FFF9FB; */
 
+
+:root {
+ --grey: #d3d4d9;
+ --blue: #4B88A2;
+ --red: #BB0A21;
+ --black: #252627;
+ --white: #FFF9FB;
+ 
+}
+
 body {
-  background-color: #FFF9FB ;
+  background-color: var(--white);
 }
 
 header {
-  background-color: #4B88A2;
+  background-color: var(--blue);
   height: 100px;
 }

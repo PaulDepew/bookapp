@@ -14,12 +14,12 @@ app.set('view engine', 'ejs');
 app.get('/', renderHome);
 app.get('/searches/new', renderNewSearch);
 
-
 app.post('/searches', callAPI);
 
 app.listen(process.env.PORT || 3000, (request, response) => {
   console.log('app is up on port: ' + process.env.PORT);
 });
+
 
 function handleError (error, request, response) {
   response.status(500).send(error);
@@ -44,13 +44,13 @@ function callAPI(request, response){
     // Construct Book
     data.map( element => {
       return new Book(element);
-    }).then(response.render('/searches/show'));
+    }).then(response.render('/searches/show', {data}));
   }).catch(error => handleError('API Search error', request, response));
 }
 
 function Book(element) {
   this.title = element.volumeInfo.title;
-  // this.author = element.volumeInfo.authors;
-  // this.description = element.voluemInfo.description;
-  // this.image = element.volumeInfo.imagelinks.thumbnail;
+  this.author = element.volumeInfo.authors;
+  this.description = element.voluemInfo.description;
+  this.image = element.volumeInfo.imagelinks.thumbnail;
 }
