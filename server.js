@@ -32,25 +32,28 @@ function renderHome(request, response){
 function renderNewSearch(request, response){
   response.render('searches/new');
 }
+
 function callAPI(request, response){
   let query = request.body.query;
   let searchTerm = request.body.filter;
   // Take Search Query Parameters
   const url = `https://www.googleapis.com/books/v1/volumes?q=+${searchTerm}:${query}`;
   // Query Book API
-  superagent.get(url).then(response => {
-    console.log(response.body);
-    const data =response.body.items;
-    // Construct Book
-    data.map( element => {
-      return new Book(element);
-    }).then(response.render('/searches/show', {data}));
-  }).catch(error => handleError('API Search error', request, response));
+  superagent.get(url)
+    .then(response => {
+      const data = response.body.items;
+      return data.map( element => new Book(element))})
+    .then(results => {
+      response.render('./searches/show', { results })})
+    .catch(error => handleError('this is bad', request, response));
 }
 
 function Book(element) {
-  this.title = element.volumeInfo.title;
-  this.author = element.volumeInfo.authors;
-  this.description = element.voluemInfo.description;
-  this.image = element.volumeInfo.imagelinks.thumbnail;
+  this.title = element.volumeInfo.title ? element.volumeInfo.title : 'No Title Found.';
+  this.author = element.volumeInfo.authors ? element.volumeInfo.authors[0] : 'No Author Found.';
+  this.description = element.volumeInfo.description ? element.volumeInfo.description : 'No Description Found.';
+  this.image_url = element.volumeInfo.imageLinks ? element.volumeInfo.imageLinks.thumbnail : 'No Image Found.';
+  this.isbn = element.volumeInfo.industryIdentifiers ? element.volumeInfo.industryIdentifiers[0].type : 'No ISBN Found.';
+  this.id = element.volumeInfo.industryIdentifiers ? element.volumeInfo.industryIdentifiers[0].identifier : 'No ID Found.';
 }
+
