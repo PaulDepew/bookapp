@@ -4,9 +4,18 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const superagent = require('superagent');
+const pg = require('pg');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
+const dbClient = new pg.Client(process.env.DATABASE_URL);
+dbClient.connect(error => {
+  if (error) {
+    console.error('This was an Error', error.stack);
+  } else {
+    console.log('Were connected');
+  }
+});
 
 app.set('view engine', 'ejs');
 
@@ -26,12 +35,25 @@ function handleError (error, request, response) {
 }
 
 function renderHome(request, response){
-  response.render('pages/index');
+  let matchSQL = "SELECT * FROM books";
+
+  dbClient.query(matchSQL).then(queryResults => {
+    if (queryResults.rowcount === 0) {
+      response.render('searches/new');
+    } else {
+      response.render('pages/index', {queryResults});
+    }
+  }).catch(error => handleError('Database Error', request, response));
 }
 
 function renderNewSearch(request, response){
   response.render('searches/new');
 }
+
+// call dbClient to bring back all SQL results
+// like calling API
+// convert array into constructed books
+// display on ejs partial
 
 function callAPI(request, response){
   let query = request.body.query;
