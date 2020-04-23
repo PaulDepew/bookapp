@@ -1,0 +1,169 @@
+#statusInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#statusInfo h2 {
+  Font-Family: 'Poppins', Sans-Serif; 
+  color: var(--black);
+  font-size: 28px;
+  margin: 5px;
+}
+
+#searchLocalBooks {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+
+#searchLocalBooks input {
+  border: none;
+  border-bottom:2px solid var(--red);
+  padding: 5px;
+  padding-left: 30px;
+  background-color: transparent;
+  background-image: url('https://img.icons8.com/search');
+  background-repeat: no-repeat;
+  background-size: 25px;
+}
+
+#searchLocalBooks button {
+  border: none;
+  background-color: var(--red);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+  transition: ease-in-out;
+  transition: 300ms ease-in-out;
+}
+
+#searchLocalBooks button:hover {
+  border: none;
+  background-color: var(--red);
+box-shadow: 3px 3px 5px var(--black);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+}
+
+#newSearch {
+  display: flex;
+  margin: 10px;
+  align-items: center;
+}
+
+#newSearch input {
+  margin: 10px;
+  border: none;
+  border-bottom:2px solid var(--red);
+  padding: 5px;
+  padding-left: 30px;
+  background-color: transparent;
+  background-image: url('https://img.icons8.com/search');
+  background-repeat: no-repeat;
+  background-size: 25px;
+}
+
+#newSearch label {
+  Font-Family: 'Poppins', Sans-Serif;
+  font-size: 20px;
+}
+
+#newSearch button {
+  border: none;
+  background-color: var(--red);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+  transition: 300ms ease-in-out;
+}
+
+#newSearch button:hover {
+  border: none;
+  background-color: var(--red);
+  box-shadow: 3px 3px 5px var(--black);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+}
+
+
+
+#moreInfo button {
+  border: none;
+  background-color: var(--red);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+  transition:300ms ease-in-out;
+}
+#moreInfo button:hover {
+  border: none;
+  background-color: var(--red);
+  box-shadow: 3px 3px 5px var(--black);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+}
+
+
+#search {
+display: grid;
+grid-template-columns: 1fr 1fr;
+grid-template-rows: 1fr 1fr 1fr;
+grid-gap: 10px;
+margin:20px;
+}
+
+#search input {
+  border: none;
+  border-bottom:2px solid var(--red);
+  padding: 5px;
+  padding-left: 30px;
+  background-color: transparent;
+  background-image: url('https://img.icons8.com/ios/64/000000/overview-pages-1.png');
+  background-position-y: center;
+  background-repeat: no-repeat;
+  background-size: 20px;
+  font-size: 12px;
+}
+
+#search button {
+  border: none;
+  grid-area: 4/ 1 / 4 / 3;
+ width: 100%;
+  background-color: var(--red);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+  transition:300ms ease-in-out;
+}
+
+#search button:hover {
+  border: none;
+  grid-area: 4/ 1 / 4 / 3;
+ width: 100%;
+ box-shadow: 3px 3px 5px var(--black);
+
+  background-color: var(--red);
+  padding: 5px;
+  margin-left: 10px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+  transition:300ms ease-in-out;
+}

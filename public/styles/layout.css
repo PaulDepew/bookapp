@@ -47,9 +47,12 @@ footer svg {
 }
 
 #statusInfo {
-  margin-left: 15px;
+  padding-left: 15px;
+  padding: 15px;
   display: block;
-  margin-top: 100px;
+  margin-top: 90px;
+  display: none;
+  margin-bottom: none;
 }
 
 #bookHolder {
@@ -58,7 +61,7 @@ footer svg {
   align-items: center;
   margin: 20px;
   padding: 10px;
-  margin-top: 15px;
+  margin-top: 60px;
   margin-bottom: 100px;
 }
 .bookdisplay {
@@ -144,10 +147,13 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
   }
 
   #statusInfo {
-    margin-left: 15px;
+    padding-left: 15px;
     display: block;
     margin-top: 100px;
+    display: none;
+    margin-bottom: none;
   }
+  
   
   #bookHolder {
     display: flex;
@@ -157,17 +163,15 @@ background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/s
     align-items: space-between;
     margin: 20px;
     padding: 10px;
-    margin-top: 15px;
+    margin-top: 80px;
     margin-bottom: 100px;
   }
   .bookdisplay {
-    width: 22%;
+    width: 24%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    /* align-content: center; */
     align-items: center;
-    padding: 20px;
+    padding: 40px;
     margin: 20px;
     background-color: var(--blue);
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23252627' fill-opacity='0.2' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E")

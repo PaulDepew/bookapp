@@ -7,11 +7,11 @@
   <h3>
       <%= book.author %>
   </h3>
-  <p>
+  <!-- <p>
       <%= book.description %> 
-  </p>
+  </p> -->
   
-  <form action='/books' method='POST'>
+  <form id="search" action='/books' method='POST'>
     <input type="text" name="title" value=' <%= book.title %>'>
     <input type="text" name="author" value=' <%= book.author %>'>
     <input type="text" name="description" value=' <%= book.description %>'>
@@ -20,7 +20,7 @@
     <input type="text" name="bookshelf" value=' fiction'>
     <button type='submit'>Save your books!</button>
     </form>
-    <form action='/books/<%= book.id %>' method="GET">
+    <form id="moreInfo" action='/books/<%= book.id %>' method="GET">
         <button type='submit'>MORE INFO</button>
     </form>
 </article>
