@@ -25,12 +25,45 @@ app.get('/searches/new', renderNewSearch);
 
 app.post('/searches', callAPI);
 
+app.post('/books', (request, response)=> {
+  const {title, author, description, image_url, isbn, bookshelf} = request.body;
+
+  let insertSql = `INSERT INTO books (author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);`;
+  let sequelValues = [author, title, isbn, image_url, description, bookshelf];
+
+  dbClient.query(insertSql, sequelValues)
+    .then(data => {
+      console.log(data.rows);
+      response.render('pages/index', {queryResults: data});
+    })
+    .catch(error => handleError(error, request, response));
+
+  response.send({title, author, description, image_url, isbn, bookshelf});
+});
+
+app.get('/books/:id', (request, response) => {
+  console.log(request);
+  const bookId = parseInt(request.params.id);
+  let selectQuery = `SELECT * FROM books WHERE id =$1;`;
+  let selectValues = [bookId];
+
+  dbClient.query(selectQuery, selectValues)
+    .then( data => {
+      console.log(data.rows);
+      // response.send('in Progress');
+      response.render('pages/details', {queryResults: data.rows[0]});
+    })
+    .catch(error => handleError(error, request, response));
+
+});
+
 app.listen(process.env.PORT || 3000, (request, response) => {
   console.log('app is up on port: ' + process.env.PORT);
 });
 
 
 function handleError (error, request, response) {
+  console.log('This is another error');
   response.status(500).send(error);
 }
 
@@ -49,11 +82,6 @@ function renderHome(request, response){
 function renderNewSearch(request, response){
   response.render('searches/new');
 }
-
-// call dbClient to bring back all SQL results
-// like calling API
-// convert array into constructed books
-// display on ejs partial
 
 function callAPI(request, response){
   let query = request.body.query;
