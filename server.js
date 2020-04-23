@@ -5,9 +5,11 @@ const express = require('express');
 const app = express();
 const superagent = require('superagent');
 const pg = require('pg');
+const methodoverride = require('method-override');
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.static('./public'));
+app.use(methodoverride('_method'));
 const dbClient = new pg.Client(process.env.DATABASE_URL);
 dbClient.connect(error => {
   if (error) {
@@ -25,30 +27,31 @@ app.get('/searches/new', renderNewSearch);
 
 app.post('/searches', callAPI);
 
+app.post('books/:id', deleteBook);
+
 app.post('/books', (request, response)=> {
   const {title, author, description, image_url, isbn, bookshelf} = request.body;
 
-  let insertSql = `INSERT INTO books (author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6);`;
+  let insertSql = `INSERT INTO books (author, title, isbn, image_url, description, bookshelf) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`;
   let sequelValues = [author, title, isbn, image_url, description, bookshelf];
 
   dbClient.query(insertSql, sequelValues)
     .then(data => {
-      console.log(data.rows);
-      response.render('pages/index', {queryResults: data});
+      const book = data.rows[0];
+      response.render('pages/details', {queryResults: book});
     })
     .catch(error => handleError(error, request, response));
 });
 
 app.get('/books/:id', (request, response) => {
-  console.log(request);
   const bookId = parseInt(request.params.id);
   let selectQuery = `SELECT * FROM books WHERE id =$1;`;
   let selectValues = [bookId];
 
   dbClient.query(selectQuery, selectValues)
     .then( data => {
-      console.log(data.rows);
       // response.send('in Progress');
+      console.log(data.rows);
       response.render('pages/details', {queryResults: data.rows[0]});
     })
     .catch(error => handleError(error, request, response));
@@ -65,14 +68,33 @@ function handleError (error, request, response) {
   response.status(500).send(error);
 }
 
+function deleteBook (request, response) {
+  const bookId = request.params.id;
+
+  let matchSql = `SELECT * FROM books;`;
+  let deleteSQL = `DELECTE FROM books WHERE id=$1 RETURNING *;`;
+  let deleteValues = [bookId];
+
+  dbClient.query(deleteSQL, deleteValues).then(data => {
+    dbClient.query(matchSql).then(queryResults => {
+      if (queryResults.rowCount === 0){
+        response.render('searches/new');
+      } else {
+        response.render('pages/index', {queryResults, data});
+      }
+    });
+  });
+}
+
 function renderHome(request, response){
   let matchSQL = "SELECT * FROM books";
 
   dbClient.query(matchSQL).then(queryResults => {
-    if (queryResults.rowcount === 0) {
+    if (queryResults.rowCount === 0) {
       response.render('searches/new');
     } else {
-      response.render('pages/index', {queryResults});
+      let data = queryResults.rows;
+      response.render('pages/index', {queryResults, data});
     }
   }).catch(error => handleError('Database Error', request, response));
 }
@@ -92,7 +114,8 @@ function callAPI(request, response){
       const data = response.body.items;
       return data.map( element => new Book(element))})
     .then(results => {
-      response.render('./searches/show', { results })})
+      console.log(results);
+      response.render('./searches/show', { book: results })})
     .catch(error => handleError('this is bad', request, response));
 }
 

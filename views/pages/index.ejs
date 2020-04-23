@@ -7,7 +7,7 @@
   src="https://code.jquery.com/jquery-3.5.0.js"
   integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
   crossorigin="anonymous"></script>
-  <link rel="stylesheet" type="text/css" href='../styles/styles.css'>
+  <link rel="stylesheet" type="stylesheet" href='../styles/styles.css'>
   <link href="https://fonts.googleapis.com/css?family=Abril+Fatface|Poppins:300" rel="stylesheet">
   <title>Book App!</title>
 </head>
@@ -66,24 +66,23 @@
   <div id="statusInfo">
     <h2> Saved Books: <%= queryResults.rowCount %> </h2>
 
-    <form id="searchLocalBooks" action="" method="">
-      <input type="text" name="searchQuery" default="Search your books!">
-      <button type="submit">Look through your books!</button>
-    </form>
 
     <%- include('../searches/new') %>
+
+    <script type='text/javascript'>
+      $('#moreInfo').on('click', function(){
+        $('#formHolder').toggle('ease-in-out')
+      })
+      </script>
   </div>
   <div id='bookHolder'>
-    <% queryResults.rows.forEach(book => { %>
+    <% data.forEach(book => { %>
       <%- include('../partials/books', { book }) %>
+      <%- include('../partials/moreInfo', {book}) %>
       <% }) %> 
-      
     </div>
-    <script type='text/javascript'>
-      $("#menuIcon").on("click",function(){
-          $('#statusInfo').toggle('ease-in-out');
-    });
-    </script>
+
+    
    <footer>
 
     <div class="socialContainer">

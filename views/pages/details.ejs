@@ -66,43 +66,51 @@
   <div id="statusInfo">
     <h2> Saved Books: <%= queryResults.rowCount %> </h2>
 
-    <form id="searchLocalBooks" action="" method="">
-      <input type="text" name="searchQuery" default="Search your books!">
-      <button type="submit">Look through your books!</button>
-    </form>
 
     <%- include('../searches/new') %>
-  </div>
-  <article id="<%= queryResults.id %> " class="bookdisplay">
-    <img src="<%= queryResults.image_url %>">
-  
-    <h2>
-        <%= queryResults.title %>
-    </h2>
-    <h3>
-        <%= queryResults.author %>
-    </h3>
-   <p><%= queryResults.description%></p>
 
-   <form id="search" action='/books' method='POST'>
-    <input type="text" name="title" value=' <%= queryResults.title %>'>
-    <input type="text" name="author" value=' <%= queryResults.author %>'>
-    <input type="text" name="description" value=' <%= queryResults.description %>'>
-    <input type="text" name="image_url" value=' <%= queryResults.image_url %>'>
-    <input type="text" name="isbn" value=' <%= queryResults.isbn %>'>
-    <input type="text" name="bookshelf" value=' fiction'>
-    <button type='submit'>Save your books!</button>
-    </form>
-    <form id="moreInfo" action='/books/<%= queryResults.id %>' method="GET">
-        <button type='submit'>MORE INFO</button>
-    </form>
    
-  </article>
+
+</div>
+  <div id='bookHolder'>
+    <article id="<%= queryResults.id %> " class="bookdisplay">
+      <img src="<%= queryResults.image_url %>">
+    
+      <h2>
+          <%= queryResults.title %>
+      </h2>
+      <h3>
+          <%= queryResults.author %>
+      </h3>
+      <p>
+          <%= queryResults.description %> 
+      </p>
+      <%- include('../partials/bookInfoForm', {book: queryResults}) %>
+      <button id='toggleForm'>Update Details</button>
+      <script>
+        $('#toggleForm').on('click', function(){
+          $('.info').toggle('smooth');
+        })
+      </script>
+
+      <form id="delete" action='/books/<%= queryResults.id %>?method=DELETE' method='POST'>
+        <input class="deleteInfo" type="text" name="title" value=' <%= queryResults.title %>'>
+        <input class="deleteInfo" type="text" name="author" value=' <%= queryResults.author %>'>
+        <input class="deleteInfo" type="text" name="description" value=' <%= queryResults.description %>'>
+        <input class="deleteInfo" type="text" name="image_url" value=' <%= queryResults.image_url %>'>
+        <input class="deleteInfo" type="text" name="isbn" value=' <%= queryResults.isbn %>'>
+        <input class="deleteInfo"type="text" name="bookshelf" value=' fiction'>
+        <button type='submit'>Remove Book</button>
+        </form>
+
+    </article>
+  
+    </div>
     <script type='text/javascript'>
-      $("#menuIcon").on("click",function(){
-          $('#statusInfo').toggle('ease-in-out');
-    });
-    </script>
+      $('#moreInfo').on('click', function(){
+        $('#formHolder').toggle('ease-in-out')
+      })
+      </script>
    <footer>
 
     <div class="socialContainer">

@@ -106,6 +106,7 @@ box-shadow: 3px 3px 5px var(--black);
   color: var(--grey);
   font-family: 'Abril Fatface', Cursive;
   transition:300ms ease-in-out;
+   margin-top: 20px;
 }
 #moreInfo button:hover {
   border: none;
@@ -118,6 +119,54 @@ box-shadow: 3px 3px 5px var(--black);
   font-family: 'Abril Fatface', Cursive;
 }
 
+.deleteInfo {
+  display: none;
+}
+
+#delete button {
+  border: none;
+  background-color: var(--red);
+  padding: 5px;
+  margin-left: 20px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+  transition:300ms ease-in-out;
+   margin-top: 10px;
+}
+#delete button:hover {
+  border: none;
+  background-color: var(--red);
+  box-shadow: 3px 3px 5px var(--black);
+  padding: 5px;
+  margin-left: 20px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+}
+
+#toggleForm {
+  border: none;
+  background-color: var(--red);
+  padding: 5px;
+  margin-left: 20px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+  transition:300ms ease-in-out;
+   margin-top: 0px;
+}
+#toggleForm:hover {
+  border: none;
+  background-color: var(--red);
+  box-shadow: 3px 3px 5px var(--black);
+  padding: 5px;
+  margin-left: 20px;
+  border-radius: 10px;
+  color: var(--grey);
+  font-family: 'Abril Fatface', Cursive;
+}
+
 
 #search {
 display: grid;
@@ -125,6 +174,10 @@ grid-template-columns: 1fr 1fr;
 grid-template-rows: 1fr 1fr 1fr;
 grid-gap: 10px;
 margin:20px;
+}
+
+input.info {
+  display: none;
 }
 
 #search input {
