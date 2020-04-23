@@ -37,8 +37,6 @@ app.post('/books', (request, response)=> {
       response.render('pages/index', {queryResults: data});
     })
     .catch(error => handleError(error, request, response));
-
-  response.send({title, author, description, image_url, isbn, bookshelf});
 });
 
 app.get('/books/:id', (request, response) => {
@@ -106,4 +104,5 @@ function Book(element) {
   this.isbn = element.volumeInfo.industryIdentifiers ? element.volumeInfo.industryIdentifiers[0].type : 'No ISBN Found.';
   this.id = element.volumeInfo.industryIdentifiers ? element.volumeInfo.industryIdentifiers[0].identifier : 'No ID Found.';
 }
+
 
