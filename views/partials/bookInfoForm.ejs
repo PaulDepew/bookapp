@@ -1,15 +1,4 @@
-<article id="<%= book.id %> " class="bookdisplay">
-  <img src="<%= book.image_url %>">
 
-  <h2>
-      <%= book.title %>
-  </h2>
-  <h3>
-      <%= book.author %>
-  </h3>
-  <!-- <p>
-      <%= book.description %> 
-  </p> -->
   <form id="search" action='/books' method='POST'>
     <input class="info" type="text" name="title" value=' <%= book.title %>'>
     <input class="info" type="text" name="author" value=' <%= book.author %>'>
@@ -19,4 +8,3 @@
     <input class="info"type="text" name="bookshelf" value=' fiction'>
     <button type='submit'>Save your books!</button>
     </form>
-</article>

@@ -1,0 +1,12 @@
+<div id="statusInfo">
+  <h2> Saved Books: <%= book.rowCount %> </h2>
+
+
+  <%- include('../searches/new') %>
+
+  <script type='text/javascript'>
+    $('#moreInfo').on('click', function(){
+      $('#formHolder').toggle('ease-in-out')
+    })
+    </script>
+</div>
