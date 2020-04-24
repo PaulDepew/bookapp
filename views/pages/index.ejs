@@ -64,7 +64,7 @@
     </div>
   </header>
   <div id="statusInfo">
-    <h2> Saved Books: <%= queryResults.rowCount %> </h2>
+    <h2> Saved Books: <%= data.rowCount %> </h2>
 
 
     <%- include('../searches/new') %>
@@ -76,7 +76,7 @@
       </script>
   </div>
   <div id='bookHolder'>
-    <% data.forEach(book => { %>
+    <% data.rows.forEach(book => { %>
       <%- include('../partials/books', { book }) %>
       <%- include('../partials/moreInfo', {book}) %>
       <% }) %> 

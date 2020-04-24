@@ -64,7 +64,7 @@
     </div>
   </header>
   <div id="statusInfo">
-    <h2> Saved Books: <%= queryResults.rowCount %> </h2>
+    <h2> Saved Books: <%= data.rowCount %> </h2>
 
 
     <%- include('../searches/new') %>
@@ -73,19 +73,19 @@
 
 </div>
   <div id='bookHolder'>
-    <article id="<%= queryResults.id %> " class="bookdisplay">
-      <img src="<%= queryResults.image_url %>">
+    <article id="<%= data.id %> " class="bookdisplay">
+      <img src="<%= data.image_url %>">
     
       <h2>
-          <%= queryResults.title %>
+          <%= data.title %>
       </h2>
       <h3>
-          <%= queryResults.author %>
+          <%= data.author %>
       </h3>
       <p>
-          <%= queryResults.description %> 
+          <%= data.description %> 
       </p>
-      <%- include('../partials/bookInfoForm', {book: queryResults}) %>
+      <%- include('../partials/bookInfoForm', {book: data}) %>
       <button id='toggleForm'>Update Details</button>
       <script>
         $('#toggleForm').on('click', function(){
@@ -93,12 +93,12 @@
         })
       </script>
 
-      <form id="delete" action='/books/<%= queryResults.id %>?method=DELETE' method='POST'>
-        <input class="deleteInfo" type="text" name="title" value=' <%= queryResults.title %>'>
-        <input class="deleteInfo" type="text" name="author" value=' <%= queryResults.author %>'>
-        <input class="deleteInfo" type="text" name="description" value=' <%= queryResults.description %>'>
-        <input class="deleteInfo" type="text" name="image_url" value=' <%= queryResults.image_url %>'>
-        <input class="deleteInfo" type="text" name="isbn" value=' <%= queryResults.isbn %>'>
+      <form id="delete" action='/books/<%= data.id %>?_method=DELETE' method='POST'>
+        <input class="deleteInfo" type="text" name="title" value=' <%= data.title %>'>
+        <input class="deleteInfo" type="text" name="author" value=' <%= data.author %>'>
+        <input class="deleteInfo" type="text" name="description" value=' <%= data.description %>'>
+        <input class="deleteInfo" type="text" name="image_url" value=' <%= data.image_url %>'>
+        <input class="deleteInfo" type="text" name="isbn" value=' <%= data.isbn %>'>
         <input class="deleteInfo"type="text" name="bookshelf" value=' fiction'>
         <button type='submit'>Remove Book</button>
         </form>
