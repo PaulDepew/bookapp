@@ -27,7 +27,7 @@ app.get('/searches/new', renderNewSearch);
 
 app.post('/searches', callAPI);
 
-app.post('books/:id', deleteBook);
+app.delete('/books/:id', deleteBook);
 
 app.post('/books', (request, response)=> {
   const {title, author, description, image_url, isbn, bookshelf} = request.body;
@@ -38,7 +38,7 @@ app.post('/books', (request, response)=> {
   dbClient.query(insertSql, sequelValues)
     .then(data => {
       const book = data.rows[0];
-      response.render('pages/details', {queryResults: book});
+      response.render('pages/details', {data: book});
     })
     .catch(error => handleError(error, request, response));
 });
@@ -51,8 +51,7 @@ app.get('/books/:id', (request, response) => {
   dbClient.query(selectQuery, selectValues)
     .then( data => {
       // response.send('in Progress');
-      console.log(data.rows);
-      response.render('pages/details', {queryResults: data.rows[0]});
+      response.render('pages/details', {data: data.rows[0]});
     })
     .catch(error => handleError(error, request, response));
 
@@ -70,19 +69,20 @@ function handleError (error, request, response) {
 
 function deleteBook (request, response) {
   const bookId = request.params.id;
-
+  console.log('This is broken bitch!');
   let matchSql = `SELECT * FROM books;`;
-  let deleteSQL = `DELECTE FROM books WHERE id=$1 RETURNING *;`;
+  let deleteSQL = `DELETE FROM books WHERE id=$1 RETURNING *;`;
   let deleteValues = [bookId];
 
   dbClient.query(deleteSQL, deleteValues).then(data => {
     dbClient.query(matchSql).then(queryResults => {
+      console.log(queryResults);
       if (queryResults.rowCount === 0){
         response.render('searches/new');
       } else {
-        response.render('pages/index', {queryResults, data});
+        response.render('pages/index', {data: queryResults});
       }
-    });
+    }).catch(error => handleError('Delete error', request, response));
   });
 }
 
@@ -93,8 +93,8 @@ function renderHome(request, response){
     if (queryResults.rowCount === 0) {
       response.render('searches/new');
     } else {
-      let data = queryResults.rows;
-      response.render('pages/index', {queryResults, data});
+      let data = queryResults;
+      response.render('pages/index', {data: data});
     }
   }).catch(error => handleError('Database Error', request, response));
 }
@@ -114,7 +114,6 @@ function callAPI(request, response){
       const data = response.body.items;
       return data.map( element => new Book(element))})
     .then(results => {
-      console.log(results);
       response.render('./searches/show', { book: results })})
     .catch(error => handleError('this is bad', request, response));
 }
